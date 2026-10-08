@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { color-scheme: dark; }
+  body {
+    @apply bg-ink-950 text-slate-200 font-sans antialiased;
+    background-image:
+      radial-gradient(circle at 15% 0%, rgba(34, 211, 238, 0.06), transparent 40%),
+      radial-gradient(circle at 100% 100%, rgba(34, 197, 94, 0.04), transparent 40%),
+      linear-gradient(rgba(148, 163, 184, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.035) 1px, transparent 1px);
+    background-size: auto, auto, 32px 32px, 32px 32px;
+    background-attachment: fixed;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: #28394f; border-radius: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl border border-ink-700/80 bg-ink-900/85 backdrop-blur-sm shadow-[0_1px_0_rgba(255,255,255,0.03)_inset];
+  }
+  .card-pad { @apply p-4 sm:p-5; }
+  .label { @apply text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-400; }
+  .metric { @apply font-mono font-bold tabular-nums tracking-tight; }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-semibold transition
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-primary { @apply bg-accent/15 text-accent border border-accent/40 hover:bg-accent/25; }
+  .btn-danger { @apply bg-crit text-white border border-crit hover:bg-red-500 shadow-glowcrit; }
+  .btn-warn { @apply bg-warn/15 text-warn border border-warn/40 hover:bg-warn/25; }
+  .btn-ghost { @apply bg-ink-800 text-slate-300 border border-ink-700 hover:bg-ink-700 hover:text-white; }
+  .input {
+    @apply w-full rounded-lg border border-ink-700 bg-ink-850 px-3 py-2 text-sm text-slate-100 font-mono
+      focus:outline-none focus:border-accent/60 focus:ring-1 focus:ring-accent/40;
+  }
+}
+
+.dot-live { animation: pulse-dot 1.4s ease-in-out infinite; }
+@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+.alert-flash { animation: alert-flash 1.2s ease-in-out 3; }
+@keyframes alert-flash { 0%, 100% { box-shadow: 0 0 0 rgba(239, 68, 68, 0); } 50% { box-shadow: 0 0 22px rgba(239, 68, 68, 0.55); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* Printable report */
+@media print {
+  body { background: #fff !important; }
+  body * { visibility: hidden; }
+  #print-report, #print-report * { visibility: visible; }
+  #print-report { position: absolute; inset: 0; color: #000; background: #fff; }
+  .no-print { display: none !important; }
+}
